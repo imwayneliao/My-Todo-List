@@ -6,14 +6,12 @@
   </h1>
   </div>
 
-
-
   <table class="table table-striped table-condensed table-hover">
     <tr>
         <td>狀態</td>
         <td>事項</td>
         <td>到期日</td>
-        <td>查看細節</td>
+        <td>筆記</td>
         <td>編輯</td>
         <td>刪除</td>
     </tr>
@@ -22,28 +20,58 @@
         <% if todo.completed %>
           <td>
             <%= link_to complete_todo_path(todo), method: :patch do %>
-              <span style="opacity: 0.4;" class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-check"></span>
             <% end %>
           </td>
         <% else %>
           <td>
             <%= link_to complete_todo_path(todo), method: :patch do %>
-              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-unchecked"></span>
             <% end %>
           </td>
         <% end %>
         <td><%= todo.title %></td>
         <td><%= todo.due_date %></td>
-        <td><%= link_to 'Show', todo_path(todo) %></td>
-        <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
+
+        <td><%= todo.note %></td>
+
+        <td>
+          <%= link_to edit_todo_path(todo) do %>
+            <span class="glyphicon glyphicon-edit"></span>
+          <% end %>    
+        </td>
+        
         <% if Time.now.to_date <= todo.due_date %>
-          <td><%= link_to 'Destroy', todo_path(todo), method: :delete, data:{ confirm: "Are you sure?" } %></td>
+          <td>
+            <%= link_to todo_path(todo), method: :delete, data:{ confirm: "Are you sure?" } do %>
+              <span class="glyphicon glyphicon-trash"></span>
+            <% end %>
+          </td>
         <% else %>
           <td>expired</td>
         <% end %>
+
       </tr>  
     <% end %>
   </table>
 
-  <%= link_to 'New Todo', new_todo_path %>
+
+  <div style="margin-top: 100px" class="col-sm-offset-2 col-sm-8">
+    <%= form_for @todos.build do |f| %>
+      <div class="form-group">
+        <%= f.label :title, "Title" %>
+        <%= f.text_field :title, class: "form-control" %>  
+      </div>
+      <div class="form-group">
+        <%= f.label :due_date, "Due_date" %>
+        <%= f.text_field :due_date, class: "form-control" %>
+      </div>    
+      <div class="form-group">
+        <%= f.label :note, "Note" %>
+        <%= f.text_area :note, class: "form-control" %>
+      </div>
+      <%= f.submit %>
+    <% end %>
+  </div>  
 </div>
+
