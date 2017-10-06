@@ -17,16 +17,30 @@
         <td>編輯</td>
         <td>刪除</td>
     </tr>
-    <% @todos.each do |todo| %>          
+    <% @todos.each do |todo| %>        
       <tr>
-        <td>
-          <input type="checkbox" aria-label="...">
-        </td>
+        <% if todo.completed %>
+          <td>
+            <%= link_to complete_todo_path(todo), method: :patch do %>
+              <span style="opacity: 0.4;" class="glyphicon glyphicon-ok"></span>
+            <% end %>
+          </td>
+        <% else %>
+          <td>
+            <%= link_to complete_todo_path(todo), method: :patch do %>
+              <span class="glyphicon glyphicon-ok"></span>
+            <% end %>
+          </td>
+        <% end %>
         <td><%= todo.title %></td>
         <td><%= todo.due_date %></td>
         <td><%= link_to 'Show', todo_path(todo) %></td>
         <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
-        <td><%= link_to 'Destroy', todo_path(todo), method: :delete, data:{ confirm: "Are you sure?" } %></td>
+        <% if Time.now.to_date <= todo.due_date %>
+          <td><%= link_to 'Destroy', todo_path(todo), method: :delete, data:{ confirm: "Are you sure?" } %></td>
+        <% else %>
+          <td>expired</td>
+        <% end %>
       </tr>  
     <% end %>
   </table>
