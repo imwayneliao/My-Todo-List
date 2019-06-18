@@ -1,24 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+作業練習：My-Todo-List
 
-Things you may want to cover:
+1) 每個 todo 可以打勾表示完成 
 
-* Ruby version
+2) 可以在主頁上直接新增新的 todo
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+3) 如果 todo 過期，右邊就沒有垃圾桶可以按了。
